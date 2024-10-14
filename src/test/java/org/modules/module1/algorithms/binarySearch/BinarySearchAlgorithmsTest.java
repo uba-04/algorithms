@@ -66,4 +66,16 @@ public class BinarySearchAlgorithmsTest {
     double number = -17.53;
     assertThrows(IllegalArgumentException.class, () -> binarySearchAlgorithms.getSquareRoot(number));
   }
+
+  @Test
+  void findRotationPoint_returnsCorrectIndex() {
+    // Given
+    BinarySearchAlgorithms binarySearchAlgorithms = new BinarySearchAlgorithms();
+    int[] array = {7, 8, 9, 1, 2, 3, 4, 5, 6};
+    int expected = 3;
+    // When
+    int actual = binarySearchAlgorithms.findRotationPoint(array);
+    // Then
+    assertEquals(expected, actual);
+  }
 }

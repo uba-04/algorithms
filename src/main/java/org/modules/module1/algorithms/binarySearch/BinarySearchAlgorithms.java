@@ -56,7 +56,6 @@ public class BinarySearchAlgorithms {
   }
 
   public double getFourDecimalsNumber(double number) {
-    System.out.println("number: " + number);
     return ((int) (number * 10000)) / 10000.0;
   }
 
