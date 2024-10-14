@@ -14,6 +14,9 @@ public class BinarySearchAlgorithms {
     if(array[index] == value) {
       return index;
     }
+    if(leftIndex >= rightIndex) {
+      return -1;
+    }
     else if(value < array[index]) {
       return findElement(array, value, leftIndex, index - 1);
     }
@@ -24,7 +27,10 @@ public class BinarySearchAlgorithms {
 
   public double getSquareRoot(double number) {
     if(number < 0) {
-      throw new IndexOutOfBoundsException("Only positive numbers are allowed.");
+      throw new IllegalArgumentException("Only positive numbers are allowed.");
+    }
+    if(number == 0) {
+      return 0;
     }
     double start;
     double end;
@@ -35,19 +41,24 @@ public class BinarySearchAlgorithms {
       start = 1;
       end = number;
     }
-    double epsilon = 0.0001;
+    double epsilon = 0.00001;
     while(end - start > epsilon) {
       double mid = (start + end) / 2;
       if(Math.abs(mid * mid - number) < epsilon) {
-        return mid;
+        return getFourDecimalsNumber(mid);
       } else if(mid * mid > number) {
         end = mid;
       } else {
         start = mid;
       }
     }
-    return (start + end) / 2;
+    return getFourDecimalsNumber((start + end) / 2);
   }
+
+  public double getFourDecimalsNumber(double number) {
+    return ((int) (number * 10000)) / 10000.0;
+  }
+
 // [7, 8, 9, 1, 2, 3, 4, 5, 6]
   public int findRotationPoint(int[] array) {
     int leftIndex = 0;
