@@ -14,6 +14,9 @@ public class BinarySearchAlgorithms {
     if(array[index] == value) {
       return index;
     }
+    if(leftIndex >= rightIndex) {
+      return -1;
+    }
     else if(value < array[index]) {
       return findElement(array, value, leftIndex, index - 1);
     }
