@@ -21,8 +21,8 @@ public class MergeSortAlgorithms {
     int n1 = mid - leftIndex + 1;
     int n2 = rightIndex - mid;
 
-    int leftTemp[] = new int [n1];
-    int rightTemp[] = new int [n2];
+    int[] leftTemp = new int [n1];
+    int[] rightTemp = new int [n2];
 
     System.arraycopy(arr, leftIndex, leftTemp, 0, n1);
     for (int j=0; j<n2; ++j)
