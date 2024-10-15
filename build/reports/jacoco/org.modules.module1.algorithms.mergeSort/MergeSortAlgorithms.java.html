@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MergeSortAlgorithms.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">module1</a> &gt; <a href="index.source.html" class="el_package">org.modules.module1.algorithms.mergeSort</a> &gt; <span class="el_source">MergeSortAlgorithms.java</span></div><h1>MergeSortAlgorithms.java</h1><pre class="source lang-java linenums">package org.modules.module1.algorithms.mergeSort;
+
+import org.modules.module1.datastructures.linkedList.ListNode;
+
+import java.util.Arrays;
+import java.util.List;
+
+<span class="fc" id="L8">public class MergeSortAlgorithms {</span>
+
+  public void mergeSort(int[] array, int leftIndex, int rightIndex) {
+<span class="fc bfc" id="L11" title="All 2 branches covered.">    if (leftIndex &lt; rightIndex) {</span>
+<span class="fc" id="L12">      int mid = (leftIndex + rightIndex) / 2;</span>
+
+<span class="fc" id="L14">      mergeSort(array, leftIndex, mid);</span>
+<span class="fc" id="L15">      mergeSort(array , mid + 1, rightIndex);</span>
+<span class="fc" id="L16">      merge(array, leftIndex, mid, rightIndex);</span>
+    }
+<span class="fc" id="L18">  }</span>
+
+  private void merge(int[] arr, int leftIndex, int mid, int rightIndex) {
+<span class="fc" id="L21">    int n1 = mid - leftIndex + 1;</span>
+<span class="fc" id="L22">    int n2 = rightIndex - mid;</span>
+
+<span class="fc" id="L24">    int[] leftTemp = new int [n1];</span>
+<span class="fc" id="L25">    int[] rightTemp = new int [n2];</span>
+
+<span class="fc" id="L27">    System.arraycopy(arr, leftIndex, leftTemp, 0, n1);</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">    for (int j=0; j&lt;n2; ++j)</span>
+<span class="fc" id="L29">      rightTemp[j] = arr[mid + 1 + j];</span>
+
+<span class="fc" id="L31">    int i = 0, j = 0;</span>
+<span class="fc" id="L32">    int k = leftIndex;</span>
+<span class="fc bfc" id="L33" title="All 4 branches covered.">    while (i &lt; n1 &amp;&amp; j &lt; n2) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">      if (leftTemp[i] &lt;= rightTemp[j]) {</span>
+<span class="fc" id="L35">        arr[k] = leftTemp[i];</span>
+<span class="fc" id="L36">        i++;</span>
+      } else {
+<span class="fc" id="L38">        arr[k] = rightTemp[j];</span>
+<span class="fc" id="L39">        j++;</span>
+      }
+<span class="fc" id="L41">      k++;</span>
+    }
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">    while (i &lt; n1) {</span>
+<span class="fc" id="L45">      arr[k] = leftTemp[i];</span>
+<span class="fc" id="L46">      i++;</span>
+<span class="fc" id="L47">      k++;</span>
+    }
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">    while (j &lt; n2) {</span>
+<span class="fc" id="L51">      arr[k] = rightTemp[j];</span>
+<span class="fc" id="L52">      j++;</span>
+<span class="fc" id="L53">      k++;</span>
+    }
+<span class="fc" id="L55">  }</span>
+
+  public ListNode sortList(ListNode head) {
+<span class="nc bnc" id="L58" title="All 4 branches missed.">    if (head == null || head.next == null)</span>
+<span class="nc" id="L59">      return head;</span>
+
+    // Step 1: split the list into two halves
+<span class="nc" id="L62">    ListNode prev = null, slow = head, fast = head;</span>
+
+<span class="nc bnc" id="L64" title="All 4 branches missed.">    while (fast != null &amp;&amp; fast.next != null) {</span>
+<span class="nc" id="L65">      prev = slow;</span>
+<span class="nc" id="L66">      slow = slow.next;</span>
+<span class="nc" id="L67">      fast = fast.next.next;</span>
+    }
+<span class="nc" id="L69">    prev.next = null;</span>
+
+    // Step 2: sort each half
+<span class="nc" id="L72">    ListNode l1 = sortList(head);</span>
+<span class="nc" id="L73">    ListNode l2 = sortList(slow);</span>
+
+    // Step 3: merge the two sorted lists
+<span class="nc" id="L76">    return merge(l1, l2);</span>
+  }
+
+  private ListNode merge(ListNode l1, ListNode l2) {
+<span class="nc" id="L80">    ListNode l = new ListNode(0), p = l;</span>
+
+<span class="nc bnc" id="L82" title="All 4 branches missed.">    while (l1 != null &amp;&amp; l2 != null) {</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">      if (l1.val &lt; l2.val) {</span>
+<span class="nc" id="L84">        p.next = l1;</span>
+<span class="nc" id="L85">        l1 = l1.next;</span>
+      } else {
+<span class="nc" id="L87">        p.next = l2;</span>
+<span class="nc" id="L88">        l2 = l2.next;</span>
+      }
+<span class="nc" id="L90">      p = p.next;</span>
+    }
+
+<span class="nc bnc" id="L93" title="All 2 branches missed.">    if (l1 != null)</span>
+<span class="nc" id="L94">      p.next = l1;</span>
+    else
+<span class="nc" id="L96">      p.next = l2;</span>
+
+<span class="nc" id="L98">    return l.next;</span>
+  }
+
+  public void sortStringArray(String[] array, int leftIndex, int rightIndex) {
+<span class="nc bnc" id="L102" title="All 2 branches missed.">    if(leftIndex &lt; rightIndex) {</span>
+<span class="nc" id="L103">      int mid = (leftIndex + rightIndex) / 2;</span>
+<span class="nc" id="L104">      sortStringArray(array, leftIndex, mid);</span>
+<span class="nc" id="L105">      sortStringArray(array, mid + 1, rightIndex);</span>
+<span class="nc" id="L106">      mergeStringArrays(array, leftIndex, mid, rightIndex);</span>
+    }
+<span class="nc" id="L108">  }</span>
+
+  private void mergeStringArrays(String[] array, int leftIndex, int mid, int rightIndex) {
+<span class="nc" id="L111">    String[] leftArray = Arrays.copyOfRange(array, leftIndex, mid + 1);</span>
+<span class="nc" id="L112">    String[] rightArray = new String[rightIndex - mid];</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">    for(int i = 0; i &lt; rightArray.length; i++) {</span>
+<span class="nc" id="L114">      rightArray[i] = array[++mid];</span>
+    }
+
+<span class="nc" id="L117">    int leftArrayIndex = 0;</span>
+<span class="nc" id="L118">    int rightArrayIndex = 0;</span>
+<span class="nc" id="L119">    int mergedIndex = leftIndex;</span>
+<span class="nc bnc" id="L120" title="All 4 branches missed.">    while(leftArrayIndex &lt; leftArray.length &amp;&amp; rightArrayIndex &lt; rightArray.length) {</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">      if(leftArray[leftArrayIndex].compareTo(rightArray[rightArrayIndex]) &lt; 0) {</span>
+<span class="nc" id="L122">        array[mergedIndex] = leftArray[leftArrayIndex];</span>
+<span class="nc" id="L123">        leftArrayIndex++;</span>
+      } else {
+<span class="nc" id="L125">        array[mergedIndex] = rightArray[rightArrayIndex];</span>
+<span class="nc" id="L126">        rightArrayIndex++;</span>
+      }
+<span class="nc" id="L128">      mergedIndex++;</span>
+    }
+
+<span class="nc bnc" id="L131" title="All 2 branches missed.">    while(leftArrayIndex &lt; leftArray.length) {</span>
+<span class="nc" id="L132">      array[mergedIndex] = leftArray[leftArrayIndex];</span>
+<span class="nc" id="L133">      mergedIndex++;</span>
+<span class="nc" id="L134">      leftArrayIndex++;</span>
+    }
+<span class="nc bnc" id="L136" title="All 2 branches missed.">    while(rightArrayIndex &lt; rightArray.length) {</span>
+<span class="nc" id="L137">      array[mergedIndex] = rightArray[rightArrayIndex];</span>
+<span class="nc" id="L138">      mergedIndex++;</span>
+<span class="nc" id="L139">      rightArrayIndex++;</span>
+    }
+<span class="nc" id="L141">  }</span>
+
+  public void mergeSortList(List&lt;Double&gt; list) {
+<span class="nc" id="L144">    sort(list, 0, list.size() - 1);</span>
+<span class="nc" id="L145">  }</span>
+
+  private void sort(List&lt;Double&gt; list, int leftIndex, int rightIndex) {
+<span class="nc bnc" id="L148" title="All 2 branches missed.">    if(leftIndex &lt; rightIndex) {</span>
+<span class="nc" id="L149">      int mid = (leftIndex + rightIndex) / 2;</span>
+      //sort left
+<span class="nc" id="L151">      sort(list, leftIndex, mid);</span>
+      // sort right
+<span class="nc" id="L153">      sort(list, mid + 1, rightIndex);</span>
+      //merge
+<span class="nc" id="L155">      merge(list, leftIndex, mid, rightIndex);</span>
+    }
+<span class="nc" id="L157">  }</span>
+
+  private void merge(List&lt;Double&gt; list, int leftIndex, int mid, int rightIndex) {
+    // get subarrays lengths
+<span class="nc" id="L161">    int leftLength = mid - leftIndex + 1;</span>
+<span class="nc" id="L162">    int rightLength = rightIndex - mid;</span>
+    // fill both subarrays up to mid point
+<span class="nc" id="L164">    double[] leftArray = new double[leftLength];</span>
+<span class="nc" id="L165">    double[] rightArray = new double[rightLength];</span>
+<span class="nc" id="L166">    int counter = leftIndex;</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">    for(int i = 0; i &lt; leftLength; i++) {</span>
+<span class="nc" id="L168">      leftArray[i] = list.get(counter);</span>
+<span class="nc" id="L169">      counter++;</span>
+    }
+<span class="nc" id="L171">    counter = mid + 1;</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">    for(int i = 0; i &lt; rightLength; i++) {</span>
+<span class="nc" id="L173">      rightArray[i] = list.get(counter);</span>
+<span class="nc" id="L174">      counter++;</span>
+    }
+    // compare left vs right and replace smallest value
+<span class="nc" id="L177">    int j = 0;</span>
+<span class="nc" id="L178">    int i = 0;</span>
+<span class="nc" id="L179">    counter = leftIndex;</span>
+<span class="nc bnc" id="L180" title="All 4 branches missed.">    while(i &lt; leftLength &amp;&amp; j &lt; rightLength) {</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">      if(leftArray[i] &lt;= rightArray[j]) {</span>
+<span class="nc" id="L182">        list.set(counter, leftArray[i]);</span>
+<span class="nc" id="L183">        i++;</span>
+      } else {
+<span class="nc" id="L185">        list.set(counter, rightArray[j]);</span>
+<span class="nc" id="L186">        j++;</span>
+      }
+<span class="nc" id="L188">      counter++;</span>
+    }
+    // fill array with remaining values from subarrays
+<span class="nc bnc" id="L191" title="All 2 branches missed.">    while(i &lt; leftLength) {</span>
+<span class="nc" id="L192">      list.set(counter, leftArray[i]);</span>
+<span class="nc" id="L193">      counter++;</span>
+<span class="nc" id="L194">      i++;</span>
+    }
+<span class="nc bnc" id="L196" title="All 2 branches missed.">    while(j &lt; rightLength) {</span>
+<span class="nc" id="L197">      list.set(counter, rightArray[j]);</span>
+<span class="nc" id="L198">      counter++;</span>
+<span class="nc" id="L199">      j++;</span>
+    }
+<span class="nc" id="L201">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

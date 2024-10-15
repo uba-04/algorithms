@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MaximumCommonElement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">module1</a> &gt; <a href="index.source.html" class="el_package">org.modules.module1.datastructures.arrayList</a> &gt; <span class="el_source">MaximumCommonElement.java</span></div><h1>MaximumCommonElement.java</h1><pre class="source lang-java linenums">package org.modules.module1.datastructures.arrayList;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+
+public class MaximumCommonElement {
+  private Vector vector1;
+  private Vector vector2;
+<span class="nc" id="L10">  Map&lt;Object, Integer&gt; occurrences = new HashMap&lt;Object, Integer&gt;();</span>
+
+<span class="nc" id="L12">  public MaximumCommonElement(Vector vector1, Vector vector2) {</span>
+<span class="nc" id="L13">    this.vector1 = vector1;</span>
+<span class="nc" id="L14">    this.vector2 = vector2;</span>
+<span class="nc" id="L15">  }</span>
+
+  public Object getMaximumCommonElement() {
+<span class="nc" id="L18">    calculateConcurrences();</span>
+
+<span class="nc" id="L20">    int maxOccurrences = 0;</span>
+<span class="nc" id="L21">    Object maximumCommonElement = null;</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">    for (Map.Entry&lt;Object, Integer&gt; entry : occurrences.entrySet()) {</span>
+<span class="nc" id="L23">      Integer value = entry.getValue();</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">      if (value &gt; maxOccurrences) {</span>
+<span class="nc" id="L25">        maxOccurrences = value;</span>
+<span class="nc" id="L26">        maximumCommonElement = entry.getKey();</span>
+      }
+<span class="nc" id="L28">    }</span>
+
+<span class="nc" id="L30">    return maximumCommonElement;</span>
+  }
+
+  private void calculateConcurrences() {
+<span class="nc bnc" id="L34" title="All 2 branches missed.">    for(int i = 0; i &lt; vector1.size(); i++) {</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">      if(occurrences.containsKey(vector1.get(i))) {</span>
+<span class="nc" id="L36">        occurrences.put(vector1.get(i), occurrences.get(vector1.get(i)) + 1);</span>
+      } else {
+<span class="nc" id="L38">        occurrences.put(vector1.get(i), 1);</span>
+      }
+    }
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">    for(int i = 0; i &lt; vector2.size(); i++) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">      if(occurrences.containsKey(vector2.get(i))) {</span>
+<span class="nc" id="L44">        occurrences.put(vector2.get(i), occurrences.get(vector2.get(i)) + 1);</span>
+      } else {
+<span class="nc" id="L46">        occurrences.put(vector2.get(i), 1);</span>
+      }
+    }
+<span class="nc" id="L49">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
