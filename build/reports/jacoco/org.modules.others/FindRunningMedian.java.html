@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FindRunningMedian.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">module1</a> &gt; <a href="index.source.html" class="el_package">org.modules.others</a> &gt; <span class="el_source">FindRunningMedian.java</span></div><h1>FindRunningMedian.java</h1><pre class="source lang-java linenums">package org.modules.others;
+
+import java.text.DecimalFormat;
+import java.util.*;
+
+<span class="nc" id="L6">public class FindRunningMedian {</span>
+<span class="nc" id="L7">  private static Queue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Comparator.reverseOrder());</span>
+<span class="nc" id="L8">  private static Queue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();</span>
+
+  /*
+    * Solution using heaps
+   */
+  public static List&lt;Double&gt; runningMedian(List&lt;Integer&gt; list) {
+<span class="nc" id="L14">    List&lt;Double&gt; medians = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L15" title="All 2 branches missed.">    for (Integer number : list) {</span>
+<span class="nc" id="L16">      addNumberToAHeap(number);</span>
+<span class="nc" id="L17">      double median = getMedian();</span>
+<span class="nc" id="L18">      medians.add(median);</span>
+<span class="nc" id="L19">      System.out.println(median);</span>
+<span class="nc" id="L20">    }</span>
+<span class="nc" id="L21">    return medians;</span>
+  }
+
+  private static void addNumberToAHeap(Integer number) {
+<span class="nc bnc" id="L25" title="All 4 branches missed.">    if(maxHeap.isEmpty() &amp;&amp; minHeap.isEmpty()) {</span>
+<span class="nc" id="L26">      minHeap.add(number);</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">    } else if(heapsLengthsAreSame()) {</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">      if(number &lt;= maxHeap.peek()) maxHeap.add(number);</span>
+<span class="nc" id="L29">      else minHeap.add(number);</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">    } else if(minHeapIsGreater()) {</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">      if(number &gt;= minHeap.peek()) {</span>
+<span class="nc" id="L32">        maxHeap.add(minHeap.poll());</span>
+<span class="nc" id="L33">        minHeap.add(number);</span>
+      } else {
+<span class="nc" id="L35">        maxHeap.add(number);</span>
+      }
+    } else {
+<span class="nc bnc" id="L38" title="All 2 branches missed.">      if(number &lt;= maxHeap.peek()) {</span>
+<span class="nc" id="L39">        minHeap.add(maxHeap.poll());</span>
+<span class="nc" id="L40">        maxHeap.add(number);</span>
+      } else {
+<span class="nc" id="L42">        minHeap.add(number);</span>
+      }
+    }
+<span class="nc" id="L45">  }</span>
+
+  private static boolean heapsLengthsAreSame() {
+<span class="nc bnc" id="L48" title="All 6 branches missed.">    return !maxHeap.isEmpty() &amp;&amp; !minHeap.isEmpty() &amp;&amp; maxHeap.size() == minHeap.size();</span>
+  }
+
+  private static boolean minHeapIsGreater() {
+<span class="nc bnc" id="L52" title="All 2 branches missed.">    if(!minHeap.isEmpty()) {</span>
+<span class="nc bnc" id="L53" title="All 4 branches missed.">      return maxHeap.isEmpty() || minHeap.size() &gt; maxHeap.size();</span>
+    } else {
+<span class="nc" id="L55">      return false;</span>
+    }
+  }
+
+  private static double getMedian() {
+<span class="nc bnc" id="L60" title="All 2 branches missed.">    if(heapsLengthsAreSame()) return (minHeap.peek().doubleValue() + maxHeap.peek().doubleValue()) / 2;</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">    else if(minHeapIsGreater()) return minHeap.peek();</span>
+<span class="nc" id="L62">    else return maxHeap.peek();</span>
+  }
+
+  /*
+    * Solution by brute force
+   */
+  public static List&lt;Double&gt; runningMedian2(List&lt;Integer&gt; list) {
+<span class="nc" id="L69">     List&lt;Double&gt; sortedList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L70">     List&lt;Double&gt; medianValues = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">     for(Integer number : list) {</span>
+<span class="nc" id="L72">         sortedList.add(Double.valueOf(number));</span>
+<span class="nc" id="L73">         sort(sortedList, 0, sortedList.size() - 1);</span>
+<span class="nc" id="L74">         double medianValue = getRoundedValue(getMedian(sortedList));</span>
+<span class="nc" id="L75">         medianValues.add(medianValue);</span>
+<span class="nc" id="L76">         System.out.println(medianValue);</span>
+<span class="nc" id="L77">     }</span>
+<span class="nc" id="L78">     return medianValues;</span>
+  }
+
+  private static void sort(List&lt;Double&gt; list, int leftIndex, int rightIndex) {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">    if(leftIndex &lt; rightIndex) {</span>
+<span class="nc" id="L83">      int mid = (leftIndex + rightIndex) / 2;</span>
+      //sort left
+<span class="nc" id="L85">      sort(list, leftIndex, mid);</span>
+      // sort right
+<span class="nc" id="L87">      sort(list, mid + 1, rightIndex);</span>
+      //merge
+<span class="nc" id="L89">      merge(list, leftIndex, mid, rightIndex);</span>
+    }
+<span class="nc" id="L91">  }</span>
+
+  private static void merge(List&lt;Double&gt; list, int leftIndex, int mid, int rightIndex) {
+    // get subarrays lengths
+<span class="nc" id="L95">    int leftLength = mid - leftIndex + 1;</span>
+<span class="nc" id="L96">    int rightLength = rightIndex - mid;</span>
+    // fill both subarrays up to mid point
+<span class="nc" id="L98">    double[] leftArray = new double[leftLength];</span>
+<span class="nc" id="L99">    double[] rightArray = new double[rightLength];</span>
+<span class="nc" id="L100">    int counter = leftIndex;</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">    for(int i = 0; i &lt; leftLength; i++) {</span>
+<span class="nc" id="L102">      leftArray[i] = list.get(counter);</span>
+<span class="nc" id="L103">      counter++;</span>
+    }
+<span class="nc" id="L105">    counter = mid + 1;</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">    for(int i = 0; i &lt; rightLength; i++) {</span>
+<span class="nc" id="L107">      rightArray[i] = list.get(counter);</span>
+<span class="nc" id="L108">      counter++;</span>
+    }
+    // compare left vs right and replace smallest value
+<span class="nc" id="L111">    int j = 0;</span>
+<span class="nc" id="L112">    int i = 0;</span>
+<span class="nc" id="L113">    counter = leftIndex;</span>
+<span class="nc bnc" id="L114" title="All 4 branches missed.">    while(i &lt; leftLength &amp;&amp; j &lt; rightLength) {</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">      if(leftArray[i] &lt;= rightArray[j]) {</span>
+<span class="nc" id="L116">        list.set(counter, leftArray[i]);</span>
+<span class="nc" id="L117">        i++;</span>
+      } else {
+<span class="nc" id="L119">        list.set(counter, rightArray[j]);</span>
+<span class="nc" id="L120">        j++;</span>
+      }
+<span class="nc" id="L122">      counter++;</span>
+    }
+    // fill array with remaining values from subarrays
+<span class="nc bnc" id="L125" title="All 2 branches missed.">    while(i &lt; leftLength) {</span>
+<span class="nc" id="L126">      list.set(counter, leftArray[i]);</span>
+<span class="nc" id="L127">      counter++;</span>
+<span class="nc" id="L128">      i++;</span>
+    }
+<span class="nc bnc" id="L130" title="All 2 branches missed.">    while(j &lt; rightLength) {</span>
+<span class="nc" id="L131">      list.set(counter, rightArray[j]);</span>
+<span class="nc" id="L132">      counter++;</span>
+<span class="nc" id="L133">      j++;</span>
+    }
+<span class="nc" id="L135">  }</span>
+
+  private static Double getMedian(List&lt;Double&gt; list) {
+<span class="nc bnc" id="L138" title="All 2 branches missed.">    if(lengthIsOdd(list)) {</span>
+<span class="nc" id="L139">      return list.get((int) (list.size() / 2));</span>
+    } else {
+<span class="nc" id="L141">      double number1 = list.get(list.size() / 2);</span>
+<span class="nc" id="L142">      double number2 = list.get(((int)(list.size() / 2)) - 1);</span>
+<span class="nc" id="L143">      return (number1 + number2) / 2;</span>
+    }
+  }
+
+  private static boolean lengthIsOdd(List&lt;Double&gt; list) {
+<span class="nc bnc" id="L148" title="All 2 branches missed.">    return list.size() % 2 != 0;</span>
+  }
+
+  private static double getRoundedValue(Double number) {
+<span class="nc" id="L152">    DecimalFormat decimalFormat = new DecimalFormat(&quot;#.#&quot;);</span>
+<span class="nc" id="L153">    decimalFormat.setMaximumFractionDigits(1);</span>
+<span class="nc" id="L154">    return Double.parseDouble(decimalFormat.format(number));</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
