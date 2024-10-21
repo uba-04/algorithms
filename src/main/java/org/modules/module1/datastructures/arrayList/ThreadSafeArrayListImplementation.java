@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class ThreadSafeArrayListImplementation<E> {
   private static final int DEFAULT_SIZE = 10;
-  private Object[] array = {};
-  private int size;
+  private volatile Object[] array = {};
+  private volatile int size;
 
   public ThreadSafeArrayListImplementation() {
     this.array = new Object[DEFAULT_SIZE];
@@ -44,6 +44,10 @@ public class ThreadSafeArrayListImplementation<E> {
       throw new IndexOutOfBoundsException("Index: " + index + "Size: " + size);
     }
     return (E) array[index];
+  }
+
+  public synchronized int size() {
+    return size;
   }
 
   private void increaseCapacity() {
