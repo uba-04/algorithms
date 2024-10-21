@@ -17,13 +17,12 @@ public class ArrayListImplementation<E> {
     this.size = 0;
   }
 
-  public boolean add(E element) {
+  public void add(E element) {
     if(size == array.length) {
       increaseCapacity();
     }
     array[size] = element;
     size++;
-    return true;
   }
 
   public E remove(int index) {
@@ -44,6 +43,10 @@ public class ArrayListImplementation<E> {
       throw new IndexOutOfBoundsException("Index: " + index + "Size: " + size);
     }
     return (E) array[index];
+  }
+
+  public int size() {
+    return size;
   }
 
   private void increaseCapacity() {
