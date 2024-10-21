@@ -3,7 +3,7 @@ package org.modules.module1.datastructures.linkedList;
 import java.util.LinkedList;
 
 public class ReverseLinkedList<E> {
-  private LinkedList<E> list;
+  private final LinkedList<E> list;
 
   public ReverseLinkedList(LinkedList<E> list) {
     this.list = list;
