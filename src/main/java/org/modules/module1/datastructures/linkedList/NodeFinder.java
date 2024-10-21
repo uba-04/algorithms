@@ -1,6 +1,6 @@
 package org.modules.module1.datastructures.linkedList;
 
-public class FindNode {
+public class NodeFinder {
   // Finding the k-th node from the end of a linked list
   public ListNode findNode(ListNode list, int nodeNumber) {
     int length = getListLength(list);
@@ -10,14 +10,15 @@ public class FindNode {
     }
     int nodeIndex = length - nodeNumber + 1;
     int index = 1;
+    ListNode output = null;
     while(list != null) {
       if(nodeIndex == index) {
-        return list;
+        output = list;
       }
       index++;
       list = list.next;
     }
-    throw new RuntimeException("Node could not be found.");
+    return output;
   }
 
   private int getListLength(ListNode list) {
