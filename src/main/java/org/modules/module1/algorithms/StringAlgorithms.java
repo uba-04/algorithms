@@ -1,7 +1,7 @@
 package org.modules.module1.algorithms;
 
 public class StringAlgorithms {
-  public int findIndexOfFirstUniqueCharacter(String input) {
+  public static int findIndexOfFirstUniqueCharacter(String input) {
     if (input == null || input.isEmpty()) {
       return -1;
     }
