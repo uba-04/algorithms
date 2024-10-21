@@ -1,6 +1,7 @@
 package org.modules.module1.datastructures.linkedList;
 
 public class Palindrome {
+
   public boolean isPalindrome(ListNode list) {
     int number = list.val;
     int reverseNumber = list.val;
@@ -11,10 +12,6 @@ public class Palindrome {
       list = list.next;
       multiplier *= 10;
     }
-    if(number == reverseNumber) {
-      return true;
-    } else {
-      return false;
-    }
+    return number == reverseNumber;
   }
 }
