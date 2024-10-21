@@ -7,7 +7,7 @@ import java.util.Vector;
 public class MaximumCommonElement {
   private Vector vector1;
   private Vector vector2;
-  Map<Object, Integer> occurrences = new HashMap<Object, Integer>();
+  Map<Object, Integer> occurrences = new HashMap<>();
 
   public MaximumCommonElement(Vector vector1, Vector vector2) {
     this.vector1 = vector1;
