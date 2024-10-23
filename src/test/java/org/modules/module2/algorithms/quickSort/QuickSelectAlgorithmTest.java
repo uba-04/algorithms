@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class QuickSelectAlgorithmTest {
 
   private final QuickSelectAlgorithm quickSelectAlgorithm = new QuickSelectAlgorithm();
+  private final int[] array = { 5, 2, 8, 3, 0, 1 };
 
   @Test
   void findKthSmallest_throwsIllegalArgumentException_whenKIsLessThanOne() {
     // Given
-    int[] array = { 1, 2, 3, 4, 5 };
     int k = 0;
 
     // When and Then
@@ -22,8 +22,7 @@ public class QuickSelectAlgorithmTest {
   @Test
   void findKthSmallest_throwsIllegalArgumentException_whenKIsGreaterThanArrayLength() {
     // Given
-    int[] array = { 1, 2, 3, 4, 5 };
-    int k = 6;
+    int k = 7;
 
     // When and Then
     assertThrows(IllegalArgumentException.class, () -> quickSelectAlgorithm.findKthSmallest(array, k));
@@ -32,7 +31,6 @@ public class QuickSelectAlgorithmTest {
   @Test
   void findKthSmallest_returnsKthSmallestElement_whenKIsValid() {
     // Given
-    int[] array = { 5, 2, 8, 3, 0, 1 };
     int k = 3;
     int expected = 2;
 
@@ -46,7 +44,6 @@ public class QuickSelectAlgorithmTest {
   @Test
   void findKthSmallest_returnsKthSmallestElement_whenKIsValid2() {
     // Given
-    int[] array = { 5, 2, 8, 3, 0, 1 };
     int k = 1;
     int expected = 0;
 
