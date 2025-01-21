@@ -1,6 +1,7 @@
 package org.modules.module2.datastructures.hashTables;
 
 public class HashTable<K, V> {
+
   private static final int CAPACITY = 16;
   private Node<K, V>[] table;
   private int size;
