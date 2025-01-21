@@ -1,6 +1,10 @@
 package org.modules.module2.algorithms.bfs;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class ShortestPathBFS {
 

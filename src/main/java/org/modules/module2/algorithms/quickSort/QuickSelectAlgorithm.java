@@ -3,7 +3,7 @@ package org.modules.module2.algorithms.quickSort;
 public class QuickSelectAlgorithm {
   public int findKthSmallest(int[] array, int k) {
     if(k < 1 || k > array.length) {
-      throw new IllegalStateException("Invalid value of 'k'.");
+      throw new IllegalArgumentException("Invalid value of 'k'.");
     }
     return quickSelect(array, k - 1, 0, array.length - 1);
   }

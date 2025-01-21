@@ -10,16 +10,16 @@ public class AnagramsFinder {
     if(firstWord.length() != secondWord.length()) {
       return false;
     }
-    Map<Character, Integer> charactersFrequency = new HashMap<>();
-    for(int i = 0; i < firstWord.length(); i++) {
-      charactersFrequency.put(
-            firstWord.charAt(i), charactersFrequency.getOrDefault(firstWord.charAt(i), 0) + 1);
+    Map<Character, Integer> firstCharsFrequency = getCharactersFrequency(firstWord);
+    Map<Character, Integer> secondCharsFrequency = getCharactersFrequency(secondWord);
+    return firstCharsFrequency.equals(secondCharsFrequency);
+  }
+
+  private Map<Character, Integer> getCharactersFrequency(String word) {
+    var charsFrequency = new HashMap<Character, Integer>();
+    for (Character character : word.toCharArray()) {
+      charsFrequency.put(character, charsFrequency.getOrDefault(character, 0) + 1);
     }
-    for(int i = 0; i < secondWord.length(); i++) {
-      if(charactersFrequency.get(secondWord.charAt(i)) == null) {
-        return false;
-      }
-    }
-    return true;
+    return charsFrequency;
   }
 }
